@@ -4,3 +4,43 @@ server:
 spring:
   application:
     name: coupon-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        enabled: false
+    gateway:
+      routes:
+        - id: coupon-merchant-admin
+          uri: lb://coupon-merchant-admin/api/merchant-admin/**
+          predicates:
+            - Path=/api/merchant-admin/**
+
+        - id: coupon-engine
+          uri: lb://coupon-engine/api/engine/**
+          predicates:
+            - Path=/api/engine/**
+
+        - id: coupon-settlement
+          uri: lb://coupon-settlement/api/settlement/**
+          predicates:
+            - Path=/api/settlement/**
+
+        - id: coupon-distribution
+          uri: lb://coupon-distribution/api/distribution/**
+          predicates:
+            - Path=/api/distribution/**
+
+        - id: coupon-search
+          uri: lb://coupon-search/api/search/**
+          predicates:
+            - Path=/api/search/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  metrics:
+    tags:
+      application: ${spring.application.name}
