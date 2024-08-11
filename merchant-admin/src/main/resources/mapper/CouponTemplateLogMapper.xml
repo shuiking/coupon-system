@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lk.merchantadmin.dao.mapper.CouponTemplateLogMapper">
+
+    <resultMap id="BaseResultMap" type="com.lk.merchantadmin.dao.entity.CouponTemplateLogDO">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="shopNumber" column="shop_number" jdbcType="BIGINT"/>
+        <result property="couponTemplateId" column="coupon_template_id" jdbcType="BIGINT"/>
+        <result property="operatorId" column="operator_id" jdbcType="BIGINT"/>
+        <result property="operationLog" column="operation_log" jdbcType="VARCHAR"/>
+        <result property="originalData" column="original_data" jdbcType="VARCHAR"/>
+        <result property="modifiedData" column="modified_data" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,shop_number,coupon_template_id,
+        operator_id,operation_log,original_data,
+        modified_data,create_time
+    </sql>
+</mapper>
