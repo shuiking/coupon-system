@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: coupon-merchant-admin
+  mvc:
+    path match:
+      matching-strategy: ANT_PATH_MATCHER
   datasource:
     driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
     url: jdbc:shardingsphere:classpath:shardingsphere-config.yaml
@@ -16,23 +19,10 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 
-springdoc:
-  default-flat-param-object: true
-  swagger-ui:
-    path: /swagger-ui.html
-    tags-sorter: alpha
-    operations-sorter: alpha
-  api-docs:
-    path: /v3/api-docs
-  group-configs:
-    - group: 'default'
-      paths-to-match: '/**'
-      packages-to-scan: com.lk
-
 knife4j:
   enable: true
   setting:
-    language: zh_cn
+    language: zh-CN
 
 rocketmq:
   name-server: 127.0.0.1:9876
@@ -41,3 +31,4 @@ rocketmq:
     send-message-timeout: 2000
     retry-times-when-send-failed: 1
     retry-times-when-send-async-failed: 1
+

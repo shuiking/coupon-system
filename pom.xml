@@ -37,8 +37,7 @@
         <guava.version>30.0-jre</guava.version>
         <jsoup.version>1.15.3</jsoup.version>
         <easyexcel.version>3.2.1</easyexcel.version>
-        <knife4j-openapi3-jakarta-spring-boot-starter.version>4.3.0
-        </knife4j-openapi3-jakarta-spring-boot-starter.version>
+        <knife4j.version>3.0.3</knife4j.version>
         <bizlog-sdk.version>3.0.4</bizlog-sdk.version>
         <javafaker.version>1.0.1</javafaker.version>
         <xxl-job.version>2.4.1</xxl-job.version>
@@ -131,8 +130,8 @@
 
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
-                <version>${knife4j-openapi3-jakarta-spring-boot-starter.version}</version>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
             </dependency>
 
             <dependency>
