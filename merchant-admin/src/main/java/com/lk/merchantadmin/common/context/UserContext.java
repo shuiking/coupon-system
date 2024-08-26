@@ -1,4 +1,4 @@
-package com.lk.merchantadmin.common;
+package com.lk.merchantadmin.common.context;
 
 import com.alibaba.ttl.TransmittableThreadLocal;
 
@@ -10,6 +10,7 @@ import java.util.Optional;
  * @Author : lk
  * @create 2024/8/26
  */
+
 public final class UserContext {
 
     private static final ThreadLocal<UserInfoDTO> USER_THREAD_LOCAL = new TransmittableThreadLocal<>();

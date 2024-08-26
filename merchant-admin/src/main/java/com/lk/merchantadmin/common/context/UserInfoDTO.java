@@ -1,4 +1,4 @@
-package com.lk.merchantadmin.common;
+package com.lk.merchantadmin.common.context;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+
 public class UserInfoDTO {
     /**
      * 用户 ID

@@ -1,7 +1,7 @@
 package com.lk.merchantadmin.config;
 
-import com.lk.merchantadmin.common.UserContext;
-import com.lk.merchantadmin.common.UserInfoDTO;
+import com.lk.merchantadmin.common.context.UserContext;
+import com.lk.merchantadmin.common.context.UserInfoDTO;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
