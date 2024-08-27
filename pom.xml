@@ -41,6 +41,7 @@
         <bizlog-sdk.version>3.0.4</bizlog-sdk.version>
         <javafaker.version>1.0.1</javafaker.version>
         <xxl-job.version>2.4.1</xxl-job.version>
+        <redisson.version>3.17.5</redisson.version>
         <rocketmq-spring-boot-starter.version>2.2.3</rocketmq-spring-boot-starter.version>
         <spotless-maven-plugin.version>2.22.1</spotless-maven-plugin.version>
         <maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
@@ -156,6 +157,12 @@
                 <groupId>com.xuxueli</groupId>
                 <artifactId>xxl-job-core</artifactId>
                 <version>${xxl-job.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
             </dependency>
 
             <dependency>
