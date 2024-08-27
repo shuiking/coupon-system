@@ -1,12 +1,17 @@
 package com.lk.merchantadmin.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.lk.framework.result.Result;
 import com.lk.framework.web.Results;
 import com.lk.merchantadmin.dto.req.CouponTaskCreateReqDTO;
+import com.lk.merchantadmin.dto.req.CouponTaskPageQueryReqDTO;
+import com.lk.merchantadmin.dto.resp.CouponTaskPageQueryRespDTO;
+import com.lk.merchantadmin.dto.resp.CouponTaskQueryRespDTO;
 import com.lk.merchantadmin.service.CouponTaskService;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,11 +36,15 @@ public class CouponTaskController {
         return Results.success();
     }
 
+    @Operation(summary = "查询优惠券推送任务详情")
+    @GetMapping("/api/merchant-admin/coupon-task/find")
+    public Result<CouponTaskQueryRespDTO> findCouponTaskById(String taskId) {
+        return Results.success(couponTaskService.findCouponTaskById(taskId));
+    }
 
-    @Operation(summary = "商家")
-    @PostMapping("/1")
-    public Result<Void> createCouponTask1(@RequestBody CouponTaskCreateReqDTO requestParam) {
-        couponTaskService.createCouponTask(requestParam);
-        return Results.success();
+    @Operation(summary = "分页查询优惠券推送任务")
+    @GetMapping("/api/merchant-admin/coupon-task/page")
+    public Result<IPage<CouponTaskPageQueryRespDTO>> pageQueryCouponTask(@RequestBody CouponTaskPageQueryReqDTO requestParam) {
+        return Results.success(couponTaskService.pageQueryCouponTask(requestParam));
     }
 }

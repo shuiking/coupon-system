@@ -3,13 +3,20 @@ package com.lk.merchantadmin.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.fastjson2.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lk.framework.exception.ClientException;
 import com.lk.merchantadmin.common.context.UserContext;
 import com.lk.merchantadmin.dao.entity.CouponTaskDO;
 import com.lk.merchantadmin.dto.req.CouponTaskCreateReqDTO;
+import com.lk.merchantadmin.dto.req.CouponTaskPageQueryReqDTO;
+import com.lk.merchantadmin.dto.resp.CouponTaskPageQueryRespDTO;
+import com.lk.merchantadmin.dto.resp.CouponTaskQueryRespDTO;
 import com.lk.merchantadmin.dto.resp.CouponTemplateQueryRespDTO;
 import com.lk.merchantadmin.enums.CouponTaskSendTypeEnum;
 import com.lk.merchantadmin.enums.CouponTaskStatusEnum;
@@ -99,6 +106,29 @@ public class CouponTaskServiceImpl extends ServiceImpl<CouponTaskMapper, CouponT
 
             couponTaskActualExecuteProducer.sendMessage(couponTaskExecuteEvent);
         }
+    }
+
+    @Override
+    public CouponTaskQueryRespDTO findCouponTaskById(String taskId) {
+        CouponTaskDO couponTaskDO = couponTaskMapper.selectById(taskId);
+        return BeanUtil.toBean(couponTaskDO, CouponTaskQueryRespDTO.class);
+    }
+
+    @Override
+    public IPage<CouponTaskPageQueryRespDTO> pageQueryCouponTask(CouponTaskPageQueryReqDTO requestParam) {
+        // 构建分页查询模板 LambdaQueryWrapper
+        LambdaQueryWrapper<CouponTaskDO> queryWrapper = Wrappers.lambdaQuery(CouponTaskDO.class)
+                .eq(CouponTaskDO::getShopNumber, UserContext.getShopNumber())
+                .eq(StrUtil.isNotBlank(requestParam.getBatchId()), CouponTaskDO::getBatchId, requestParam.getBatchId())
+                .like(StrUtil.isNotBlank(requestParam.getTaskName()), CouponTaskDO::getTaskName, requestParam.getTaskName())
+                .eq(StrUtil.isNotBlank(requestParam.getCouponTemplateId()), CouponTaskDO::getCouponTemplateId, requestParam.getCouponTemplateId())
+                .eq(Objects.nonNull(requestParam.getStatus()), CouponTaskDO::getStatus, requestParam.getStatus());
+
+        // MyBatis-Plus 分页查询优惠券推送任务信息
+        IPage<CouponTaskDO> selectPage = couponTaskMapper.selectPage(requestParam,queryWrapper);
+
+        // 转换数据库持久层对象为优惠券模板返回参数
+        return selectPage.convert(each -> BeanUtil.toBean(each, CouponTaskPageQueryRespDTO.class));
     }
 
 
