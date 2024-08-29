@@ -32,4 +32,11 @@
         status,create_time,update_time,
         del_flag
     </sql>
+
+    <update id="increaseNumberCouponTemplate">
+        UPDATE t_coupon_template
+        SET stock = stock + #{number}
+        WHERE shop_number = #{shopNumber}
+          AND id = #{couponTemplateId}
+    </update>
 </mapper>

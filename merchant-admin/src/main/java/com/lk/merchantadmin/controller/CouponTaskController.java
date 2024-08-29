@@ -1,6 +1,7 @@
 package com.lk.merchantadmin.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.lk.framework.idempotent.NoDuplicateSubmit;
 import com.lk.framework.result.Result;
 import com.lk.framework.web.Results;
 import com.lk.merchantadmin.dto.req.CouponTaskCreateReqDTO;
@@ -30,6 +31,7 @@ public class CouponTaskController {
     private final CouponTaskService couponTaskService;
 
     @Operation(summary = "商家创建优惠券推送任务")
+    @NoDuplicateSubmit(message = "请勿短时间内重复提交优惠券推送任务")
     @PostMapping("/api/merchant-admin/coupon-task/create")
     public Result<Void> createCouponTask(@RequestBody CouponTaskCreateReqDTO requestParam) {
         couponTaskService.createCouponTask(requestParam);
@@ -47,4 +49,5 @@ public class CouponTaskController {
     public Result<IPage<CouponTaskPageQueryRespDTO>> pageQueryCouponTask(@RequestBody CouponTaskPageQueryReqDTO requestParam) {
         return Results.success(couponTaskService.pageQueryCouponTask(requestParam));
     }
+
 }
