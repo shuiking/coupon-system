@@ -10,20 +10,6 @@
     <artifactId>merchant-admin</artifactId>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba.fastjson2</groupId>
-            <artifactId>fastjson2</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>io.github.mouzt</groupId>
@@ -77,10 +63,6 @@
             <artifactId>xxl-job-core</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId></groupId>
-            <artifactId>redis</artifactId>
-        </dependency>
     </dependencies>
 
     <build>

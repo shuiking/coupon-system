@@ -4,3 +4,31 @@ server:
 spring:
   application:
     name: coupon-distribution
+  datasource:
+    driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
+    url: jdbc:shardingsphere:classpath:shardingsphere-config.yml
+  redis:
+    host: localhost
+    port: 6379
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        enabled: false
+      password: nacos
+      username: nacos
+
+coupon:
+  distribution:
+    feign:
+      remote-url:
+        engine: http://127.0.0.1:10020
+
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    group: oneCoupon_distribution${unique-name:}-service_common-message-execute_pg
+    send-message-timeout: 2000
+    retry-times-when-send-failed: 1
+    retry-times-when-send-async-failed: 1
+
