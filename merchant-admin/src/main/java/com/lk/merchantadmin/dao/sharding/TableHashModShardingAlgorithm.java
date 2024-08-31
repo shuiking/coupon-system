@@ -6,6 +6,7 @@ import org.apache.shardingsphere.sharding.api.sharding.standard.StandardSharding
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Properties;
 
 /**
  * 基于 HashMod 方式自定义分表算法
@@ -13,6 +14,7 @@ import java.util.Collections;
  * @Author : lk
  * @create 2024/8/11
  */
+
 public final class TableHashModShardingAlgorithm implements StandardShardingAlgorithm<Long> {
     @Override
     public String doSharding(Collection<String> availableTargetNames, PreciseShardingValue<Long> preciseShardingValue) {
@@ -47,5 +49,15 @@ public final class TableHashModShardingAlgorithm implements StandardShardingAlgo
      */
     private long hashShardingValue(final Comparable<?> shardingValue) {
         return Math.abs((long) shardingValue.hashCode());
+    }
+
+    @Override
+    public Properties getProps() {
+        return null;
+    }
+
+    @Override
+    public void init(Properties props) {
+
     }
 }

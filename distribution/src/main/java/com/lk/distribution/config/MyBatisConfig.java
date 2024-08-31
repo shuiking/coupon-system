@@ -1,5 +1,8 @@
 package com.lk.distribution.config;
 
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.context.annotation.Configuration;
+
 /**
  * MyBatis 配置类
  * @Author : lk
