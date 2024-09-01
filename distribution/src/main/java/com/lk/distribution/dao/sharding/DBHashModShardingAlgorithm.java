@@ -1,6 +1,7 @@
 package com.lk.distribution.dao.sharding;
 
 import cn.hutool.core.lang.Singleton;
+import com.lk.framework.exception.ShardingAlgorithmException;
 import lombok.Getter;
 //import org.apache.shardingsphere.infra.util.exception.ShardingSpherePreconditions;
 import org.apache.shardingsphere.sharding.api.sharding.standard.PreciseShardingValue;
@@ -11,6 +12,7 @@ import org.apache.shardingsphere.sharding.api.sharding.standard.StandardSharding
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Properties;
+import java.util.function.Supplier;
 
 /**
  * 基于 HashMod 方式自定义分库算法
@@ -18,6 +20,7 @@ import java.util.Properties;
  * @Author : lk
  * @create 2024/8/11
  */
+
 public final class DBHashModShardingAlgorithm implements StandardShardingAlgorithm<Long> {
     @Getter
     private Properties props;
@@ -67,7 +70,7 @@ public final class DBHashModShardingAlgorithm implements StandardShardingAlgorit
      */
     private int getShardingCount(final Properties props) {
         // 验证配置中是否包含分片总数的键，不然就抛出异常
-//        ShardingSpherePreconditions.checkState(props.containsKey(SHARDING_COUNT_KEY), () -> new ShardingAlgorithmInitializationException(getType(), "Sharding count cannot be null."));
+        checkState(props.containsKey(SHARDING_COUNT_KEY), () -> new ShardingAlgorithmException("Sharding count cannot be null."));
         return Integer.parseInt(props.getProperty(SHARDING_COUNT_KEY));
     }
 
@@ -79,5 +82,11 @@ public final class DBHashModShardingAlgorithm implements StandardShardingAlgorit
      */
     private long hashShardingValue(final Comparable<?> shardingValue) {
         return Math.abs((long) shardingValue.hashCode());
+    }
+
+    private void checkState(boolean expression, Supplier<RuntimeException> exceptionSupplier) {
+        if (!expression) {
+            throw exceptionSupplier.get();
+        }
     }
 }

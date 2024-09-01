@@ -10,7 +10,6 @@ import com.lk.merchantadmin.dao.entity.UserDO;
  * @Entity generator.domain.UserDO
  */
 public interface UserMapper extends BaseMapper<UserDO> {
-
 }
 
 
