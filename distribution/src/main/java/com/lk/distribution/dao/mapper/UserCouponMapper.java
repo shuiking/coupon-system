@@ -3,6 +3,8 @@ package com.lk.distribution.dao.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lk.distribution.dao.entity.UserCouponDO;
 
+import java.util.List;
+
 /**
  * @author k
  * @description 针对表【t_user_coupon(用户优惠券表)】的数据库操作Mapper

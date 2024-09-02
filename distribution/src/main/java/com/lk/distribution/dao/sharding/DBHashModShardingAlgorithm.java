@@ -30,11 +30,8 @@ public final class DBHashModShardingAlgorithm implements StandardShardingAlgorit
 
     @Override
     public String doSharding(Collection<String> availableTargetNames, PreciseShardingValue<Long> preciseShardingValue) {
-        long id = preciseShardingValue.getValue();
-        int dbSize = availableTargetNames.size();
-
         // 根据hash值进行取模运算，最后将结果映射到实际的目标数据库
-        int mod = (int) hashShardingValue(id) % shardingCount / (shardingCount / dbSize);
+        int mod = getShardingMod(preciseShardingValue.getValue(), availableTargetNames.size());
 
         // 根据取模结果进行匹配，并返回相关数据库名称
         int index = 0;
@@ -44,7 +41,7 @@ public final class DBHashModShardingAlgorithm implements StandardShardingAlgorit
             }
             index++;
         }
-        throw new IllegalArgumentException("No target found for value: " + id);
+        throw new IllegalArgumentException("No target found for value: " + preciseShardingValue.getValue());
     }
 
     @Override
@@ -82,6 +79,10 @@ public final class DBHashModShardingAlgorithm implements StandardShardingAlgorit
      */
     private long hashShardingValue(final Comparable<?> shardingValue) {
         return Math.abs((long) shardingValue.hashCode());
+    }
+
+    public int getShardingMod(long id, int availableTargetSize) {
+        return (int) hashShardingValue(id) % shardingCount / (shardingCount / availableTargetSize);
     }
 
     private void checkState(boolean expression, Supplier<RuntimeException> exceptionSupplier) {

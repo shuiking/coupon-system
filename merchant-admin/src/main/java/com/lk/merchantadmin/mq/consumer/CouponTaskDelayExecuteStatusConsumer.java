@@ -13,6 +13,8 @@ import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.springframework.stereotype.Component;
 
 /**
+ * 优惠券推送延迟执行-变更记录发送状态消费者
+ *
  * @Author : lk
  * @create 2024/8/29
  */
