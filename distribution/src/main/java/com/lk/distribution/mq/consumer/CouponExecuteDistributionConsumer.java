@@ -11,6 +11,8 @@ import com.lk.distribution.common.constant.DistributionRedisConstant;
 import com.lk.distribution.common.constant.DistributionRocketMQConstant;
 import com.lk.distribution.common.enums.CouponSourceEnum;
 import com.lk.distribution.common.enums.CouponStatusEnum;
+import com.lk.distribution.common.enums.CouponTaskStatusEnum;
+import com.lk.distribution.dao.entity.CouponTaskDO;
 import com.lk.distribution.dao.entity.CouponTemplateDO;
 import com.lk.distribution.dao.entity.UserCouponDO;
 import com.lk.distribution.dao.mapper.CouponTaskMapper;
@@ -19,6 +21,7 @@ import com.lk.distribution.dao.mapper.UserCouponMapper;
 import com.lk.distribution.dao.sharding.DBShardingUtil;
 import com.lk.distribution.mq.base.MessageWrapper;
 import com.lk.distribution.mq.event.CouponTemplateExecuteEvent;
+import com.lk.framework.exception.ServiceException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.BatchExecutorException;
@@ -64,7 +67,29 @@ public class CouponExecuteDistributionConsumer implements RocketMQListener<Messa
         // 当保存用户优惠券集合达到批量保存数量
         CouponTemplateExecuteEvent event = couponTemplateExecuteEventMessageWrapper.getMessage();
         if (!event.getDistributionEndFlag() && event.getBatchUserSetSize() % BATCH_USER_COUPON_SIZE == 0) {
+            decrementCouponTemplateStockAndSaveUserCouponList(event);
+        }
 
+        // 分发任务的结束标志为true，则代表已经没有excel记录了
+        if (event.getDistributionEndFlag()) {
+            String batchUserSetKey = String.format(DistributionRedisConstant.TEMPLATE_TASK_EXECUTE_BATCH_USER_KEY, event.getCouponTaskId());
+            Long batchUserIdsSize = stringRedisTemplate.opsForValue().size(batchUserSetKey);
+            event.setBatchUserSetSize(batchUserIdsSize);
+
+            decrementCouponTemplateStockAndSaveUserCouponList(event);
+            List<String> batchUserIds = stringRedisTemplate.opsForSet().pop(batchUserSetKey, Integer.MAX_VALUE);
+            // 如果待保存入库用户优惠券列表如果还有值，意味着这事库存不足引起的
+            if (CollUtil.isNotEmpty(batchUserIds)) {
+                throw new ServiceException("库存不足");
+            }
+
+            // 确保所有用户都已经接到优惠券后，设置优惠券推送任务完成时间
+            CouponTaskDO couponTaskDO = CouponTaskDO.builder()
+                    .id(Long.parseLong(event.getCouponTaskId()))
+                    .status(CouponTaskStatusEnum.SUCCESS.getStatus())
+                    .completionTime(new Date())
+                    .build();
+            couponTaskMapper.updateById(couponTaskDO);
         }
 
     }
