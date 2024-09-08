@@ -24,7 +24,7 @@ public class MailMessageSendServiceImpl implements MessageSendService, Distribut
 
     @Override
     public String mark() {
-        return SendMessageMarkCovertEnum.APPLICATION.name();
+        return SendMessageMarkCovertEnum.EMAIL.name();
     }
 
     @Override
