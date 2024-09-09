@@ -10,7 +10,6 @@ spring:
   datasource:
     driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
     url: jdbc:shardingsphere:classpath:shardingsphere-config.yml
-
   redis:
     host: localhost
     port: 6379
