@@ -33,7 +33,7 @@ knife4j:
 rocketmq:
   name-server: 127.0.0.1:9876
   producer:
-    group: coupon_engine${unique-name:}-service`11`1_common-message-execute_pg
+    group: oneCoupon_engine${unique-name:}-service_common-message-execute_pg
     send-message-timeout: 2000
     retry-times-when-send-failed: 1
     retry-times-when-send-async-failed: 1
