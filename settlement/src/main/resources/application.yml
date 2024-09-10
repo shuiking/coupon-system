@@ -4,3 +4,21 @@ server:
 spring:
   application:
     name: coupon-settlement
+  mvc:
+    path match:
+      matching-strategy: ANT_PATH_MATCHER
+  datasource:
+    driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
+    url: jdbc:shardingsphere:classpath:shardingsphere-config.yml
+  redis:
+    host: localhost
+    port: 6379
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+knife4j:
+  enable: true
+  setting:
+    language: zh-CN
