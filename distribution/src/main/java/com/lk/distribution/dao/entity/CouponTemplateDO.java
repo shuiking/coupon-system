@@ -80,12 +80,12 @@ public class CouponTemplateDO implements Serializable {
     /**
      * 领取规则
      */
-    private Object receiveRule;
+    private String receiveRule;
 
     /**
      * 消耗规则
      */
-    private Object consumeRule;
+    private String consumeRule;
 
     /**
      * 优惠券状态 0：生效中 1：已结束

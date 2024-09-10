@@ -23,6 +23,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class CouponTemplateRemindDO implements Serializable {
+
     /**
      * 用户ID
      */
