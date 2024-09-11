@@ -1,3 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   com.lk.framework.config.WebAutoConfiguration,\
-  com.lk.framework.config.IdempotentConfiguration
+  com.lk.framework.config.IdempotentConfiguration,\
+  com.lk.framework.config.RedissonConfiguration

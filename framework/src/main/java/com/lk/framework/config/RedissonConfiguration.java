@@ -1,4 +1,4 @@
-package com.lk.distribution.config;
+package com.lk.framework.config;
 
 import lombok.Data;
 import org.redisson.Redisson;
