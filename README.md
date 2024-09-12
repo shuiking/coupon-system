@@ -30,4 +30,7 @@ coupon-system
 | ElasticSearch | 搜索引擎 | 7.6.2 |
 
 ## 系统架构图
+![cliuc](https://github.com/user-attachments/assets/05860457-bdbf-4f55-b99e-451b7c677bf3)
+
+
 ## 业务架构图
