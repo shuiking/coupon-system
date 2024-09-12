@@ -9,7 +9,7 @@ coupon-system
 ├── gateway             -- 网关模块  
 ├── merchant-admin      -- 后管模板  
 ├── search              -- 搜索模块  
-├── settlement          -- 结算模块  
+└── settlement          -- 结算模块  
 
 ## 技术选型
 | 技术 | 说明 | 版本 | 
