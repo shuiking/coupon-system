@@ -21,6 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class CouponTemplateDO implements Serializable {
+
     /**
      * ID
      */

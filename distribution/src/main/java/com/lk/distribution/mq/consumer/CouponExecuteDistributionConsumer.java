@@ -158,6 +158,7 @@ public class CouponExecuteDistributionConsumer implements RocketMQListener<Messa
             if (cause instanceof BatchExecutorException) {
                 // 查询已经存在的用户优惠券记录
                 List<Long> userIds = userCouponDOList.stream().map(UserCouponDO::getUserId).collect(Collectors.toList());
+
                 List<UserCouponDO> existingUserCoupons = getExistingUserCoupons(couponTemplateId, userIds);
                 // 遍历已经存在的集合，获取 userId，并从需要新增的集合中移除匹配的元素
                 for (UserCouponDO each : existingUserCoupons) {

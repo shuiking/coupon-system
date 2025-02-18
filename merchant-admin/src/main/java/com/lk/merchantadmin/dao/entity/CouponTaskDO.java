@@ -21,6 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class CouponTaskDO implements Serializable {
+
     /**
      * ID
      */
